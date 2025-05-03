@@ -10,6 +10,7 @@ import (
 
 var turbo bool;
 func init() {
+	flag.BoolVar(&turbo, "t", false, "Enable turbo mode for Rot26 encryption (shorthand)")
 	flag.BoolVar(&turbo, "turbo", false, "Enable turbo mode for Rot26 encryption")
 }
 
