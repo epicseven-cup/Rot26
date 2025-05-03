@@ -16,6 +16,11 @@ More information: https://go.dev/wiki/GOPATH#gopath-variable
 go install github.com/epicseven-cup/Rot26@latest 
 ```
 
+There could be delays between the Goproxy and GitHub binarys, you can use the direct setup
+```bash
+GOPROXY=direct go install github.com/epicseven-cup/Rot26@latest
+```
+
 # How to use Rot26
 
 
