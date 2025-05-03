@@ -5,6 +5,10 @@ import (
 	"fmt"
 	"runtime"
 	"errors"
+	"os"
+	"bufio"
+	"io"
+	"strconv"
 )
 
 
@@ -35,7 +39,7 @@ func rot26(s string) (string, error) {
 				// It is uppdercase
 				rotatedRune = rotation(r, rune('A'))
 			} else {
-				return "", errors.New("None letter character(s) detected")
+				return "", errors.New(fmt.Sprintf("None letter character(s) detected, %s", strconv.QuoteRune(r)))
 			}
 			encrypted = append(encrypted, rotatedRune)
 		}
@@ -63,17 +67,40 @@ func main() {
 
 	// Parsing the flags
 	flag.Parse()
-
 	// Command line args that arn't parsed as flag
 	args := flag.Args()
+	// Check Pipe
+	var input string
+	fi, _ := os.Stdin.Stat()
+	if (fi.Mode() & os.ModeCharDevice) == 0 {
+		reader := bufio.NewReader(os.Stdin)
+		buffer := make([]byte, 256)
+		b := []byte{}
 
-	if len(args) != 1 {
+		for {
+			n, err := reader.Read(buffer)
+			if err != nil {
+				if err == io.EOF {
+					break
+				}
+				fmt.Println("Error encounted:", err)
+			}
+			b = append(b, buffer[:n]...)
+			buffer = buffer[:n]
+		}
+		input = string(b)
+	} else if len(args) == 1 {
+		input = args[0]
+	} else {
 		fmt.Println("Incorrect amount of command line argument value, limited to 1")
 		fmt.Println("e.g. `rot26 helloworld`")
+		fmt.Println("e.g. `cat file.txt | rot26`")
 		return
 	}
 
-	result, err := rot26(args[0])
+	fmt.Printf("Input: %s\n",strconv.Quote(input))
+
+	result, err := rot26(input)
 	if err != nil {
 		fmt.Println("Error encounted:", err)
 	}
