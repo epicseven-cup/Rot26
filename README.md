@@ -32,3 +32,7 @@ Rot26 -t Helloworld
 ```bash
 Rot26 Rot13isBad
 ```
+
+```bash
+echo -n "helloworld" | Rot26
+```
