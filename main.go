@@ -35,7 +35,7 @@ func rot26(s string) (string, error) {
 				// It is uppdercase
 				rotatedRune = rotation(r, rune('A'))
 			} else {
-				return "", errors.New("None letter characters deteced")
+				return "", errors.New("None letter character(s) detected")
 			}
 			encrypted = append(encrypted, rotatedRune)
 		}
