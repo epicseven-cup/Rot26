@@ -1,5 +1,6 @@
 # Rot26
-twice as secure compare to Rot13
+
+Cli tool made for Rot26, twice as secure compare to Rot13
 
 # Install
 1. You will need to install go on your machine: https://go.dev/doc/install
